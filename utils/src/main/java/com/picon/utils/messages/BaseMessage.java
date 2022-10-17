@@ -2,6 +2,8 @@ package com.picon.utils.messages;
 
 public class BaseMessage {
 
+    public static final String EXCEPTION_NO_REPORT_FOUND = "No report found!";
+
     public static final String EXCEPTION_INTERNET_DISCONNECTED = "Your internet service has disconnected. Please confirm your internet connection.";
     public static final String EXCEPTION_PROCESS_CANCELED = "Process has canceled!";
     public static final String EXCEPTION_PROCESS_FAILED = "Process has failed, please try again!";

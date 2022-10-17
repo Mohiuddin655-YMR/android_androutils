@@ -14,7 +14,12 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.picon.utils.R;
+import com.picon.utils.fojos.Like;
+import com.picon.utils.fojos.Report;
+import com.picon.utils.fojos.Star;
 import com.picon.utils.loaders.AnimationLoader;
+
+import java.util.ArrayList;
 
 public abstract class ViewHolderHelper<T, Options> extends RecyclerView.ViewHolder {
 
@@ -131,9 +136,6 @@ public abstract class ViewHolderHelper<T, Options> extends RecyclerView.ViewHold
         default void onItemFollowRequest(@NonNull T t, @NonNull View view, boolean isFollowing) {
         }
 
-        default void onItemReportRequest(@NonNull T t, boolean isAlreadyReported) {
-        }
-
         default void onItemShareRequest(@NonNull T t, @NonNull View view) {
         }
 
@@ -145,6 +147,19 @@ public abstract class ViewHolderHelper<T, Options> extends RecyclerView.ViewHold
 
         default void onItemVisitProfileRequest(@NonNull T t, @NonNull View view) {
         }
+
+        default void onItemLikeRequest(@NonNull Like like, @NonNull ArrayList<String> likes, boolean isLike) {
+        }
+
+        default void onItemStarRequest(@NonNull Star star, @NonNull ArrayList<String> stars, boolean isStar) {
+        }
+
+        default void onItemReportRequest(@NonNull T t, @NonNull Report report, @NonNull ArrayList<String> reports) {
+        }
+
+        default void onItemReportRequest(@NonNull T t, boolean isReported) {
+        }
+
     }
 
     public static class Options<T> {
