@@ -155,7 +155,8 @@ public class FirebaseDatabaseCallback extends FirebaseStorageCallback {
                     .addOnCanceledListener(mActivity, () -> listener.onResponse(response.setErrorCode(ErrorCode.CANCELED)))
                     .addOnFailureListener(mActivity, e -> listener.onResponse(response.setErrorCode(ErrorCode.FAILURE).setException(e)))
                     .addOnSuccessListener(mActivity, value -> {
-                        if (value != null && value.exists()) {
+                        boolean valid = value != null && value.exists();
+                        if (valid) {
                             try {
                                 T data = value.getValue(dataClass);
                                 response.setSnapshot(value).setResult(data);
@@ -165,7 +166,7 @@ public class FirebaseDatabaseCallback extends FirebaseStorageCallback {
                         } else {
                             response.setErrorCode(ErrorCode.RESULT_NOT_FOUND);
                         }
-                        listener.onResponse(response);
+                        listener.onResponse(response.setValid(valid));
                     });
         }
     }
@@ -182,7 +183,8 @@ public class FirebaseDatabaseCallback extends FirebaseStorageCallback {
                     .addOnCanceledListener(mActivity, () -> listener.onResponse(response.setErrorCode(ErrorCode.CANCELED)))
                     .addOnFailureListener(mActivity, e -> listener.onResponse(response.setErrorCode(ErrorCode.FAILURE).setException(e)))
                     .addOnSuccessListener(mActivity, value -> {
-                        if (value != null && value.exists()) {
+                        boolean valid = value != null && value.exists();
+                        if (valid) {
                             try {
                                 T data = value.toObject(dataClass);
                                 response.setSnapshot(value).setResult(data);
@@ -192,7 +194,7 @@ public class FirebaseDatabaseCallback extends FirebaseStorageCallback {
                         } else {
                             response.setErrorCode(ErrorCode.RESULT_NOT_FOUND);
                         }
-                        listener.onResponse(response);
+                        listener.onResponse(response.setValid(valid));
                     });
         }
     }
@@ -217,7 +219,8 @@ public class FirebaseDatabaseCallback extends FirebaseStorageCallback {
                     .addOnCanceledListener(mActivity, () -> listener.onResponse(response.setErrorCode(ErrorCode.CANCELED)))
                     .addOnFailureListener(mActivity, e -> listener.onResponse(response.setErrorCode(ErrorCode.FAILURE).setException(e)))
                     .addOnSuccessListener(mActivity, values -> {
-                        if (values != null && values.exists()) {
+                        boolean valid = values != null && values.exists();
+                        if (valid) {
                             ArrayList<T> list = new ArrayList<>();
                             for (DataSnapshot value : values.getChildren()) {
                                 if (value != null && value.exists()) {
@@ -234,7 +237,7 @@ public class FirebaseDatabaseCallback extends FirebaseStorageCallback {
                         } else {
                             response.setErrorCode(ErrorCode.RESULT_NOT_FOUND);
                         }
-                        listener.onResponse(response);
+                        listener.onResponse(response.setValid(valid));
                     });
         }
     }
@@ -251,7 +254,8 @@ public class FirebaseDatabaseCallback extends FirebaseStorageCallback {
                     .addOnCanceledListener(mActivity, () -> listener.onResponse(response.setErrorCode(ErrorCode.CANCELED)))
                     .addOnFailureListener(mActivity, e -> listener.onResponse(response.setErrorCode(ErrorCode.FAILURE).setException(e)))
                     .addOnSuccessListener(mActivity, values -> {
-                        if (values != null && !values.isEmpty()) {
+                        boolean valid = values != null && !values.isEmpty();
+                        if (valid) {
                             ArrayList<T> list = new ArrayList<>();
                             for (DocumentSnapshot value : values) {
                                 if (value != null && value.exists()) {
@@ -268,7 +272,7 @@ public class FirebaseDatabaseCallback extends FirebaseStorageCallback {
                         } else {
                             response.setErrorCode(ErrorCode.RESULT_NOT_FOUND);
                         }
-                        listener.onResponse(response);
+                        listener.onResponse(response.setValid(valid));
                     });
         }
     }
